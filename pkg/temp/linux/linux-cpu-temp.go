@@ -5,11 +5,6 @@ import (
 	"io/ioutil"
 )
 
-const (
-	KERNEL_SYS_THERMAL_CLASS    = "/sys/class/thermal/"
-	KERNEL_SYS_THERMAL_TYPE_FAN = "fan"
-)
-
 type LinuxTemp struct{}
 
 func (h *LinuxTemp) GetTemperatures() (map[string]int, error) {
