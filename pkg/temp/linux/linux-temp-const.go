@@ -7,15 +7,20 @@ const (
 
 	//Types constants
 
-	KERNEL_SYS_THERMAL_TYPE_FAN       string = "fan"
-	KERNEL_SYS_THERMAL_TYPE_PROCESSOR string = "processor"
-
-	//from drivers/thermal/broadcom/bcm2835_thermal.c
 	KERNEL_SYS_THERMAL_TYPE_BCM2835 string = "bcm2835_thermal"
-	//from drivers/thermal/intel/intel_powerclamp.c
-	KERNEL_SYS_THERMAL_TYPE_INTEL_POWERCLAMP string = "intel_powerclamp"
-	//from drivers/thermal/intel/x86_pkg_temp_thermal.c
-	KERNEL_SYS_THERMAL_TYPE_X86_PKG_TEMP string = "pkg_temp_thermal"
+	//drivers/thermal/intel/int340x_thermal/int3400_thermal.c
+	KERNEL_SYS_THERMAL_TYPE_X86_PKG_TEMP string = "INT3400 Thermal"
+	//drivers/acpi/thermal.c
+	KERNEL_SYS_THERMAL_TYPE_ACPITZ string = "acpitz"
 	//from drivers/thermal/qcom/tsens.c
 	KERNEL_SYS_THERMAL_TYPE_QCOM string = "tsens"
 )
+
+//GetThermals - retrieve all the thermal constants in a slice
+func GetThermals() []string {
+	return []string{
+		KERNEL_SYS_THERMAL_TYPE_X86_PKG_TEMP,
+		KERNEL_SYS_THERMAL_TYPE_BCM2835,
+		KERNEL_SYS_THERMAL_TYPE_QCOM}
+
+}
