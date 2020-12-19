@@ -1,4 +1,4 @@
-GO    := CGO_ENABLED=0 GOOS=darwin GOPROXY=off go
+GO    := CGO_ENABLED=0 GOOS=linux GOPROXY=off go
 PKG    = git.balhau.net/monitor
 pkgs   = $(shell $(GO) list $(PKG)/... | grep -v /vendor/)
 

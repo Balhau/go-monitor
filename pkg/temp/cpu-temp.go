@@ -1,21 +1,26 @@
 package temp
 
 import (
-	"errors"
 	"fmt"
-	"io/ioutil"
+	"runtime"
+
+	"git.balhau.net/monitor/pkg/temp/linux"
+	"git.balhau.net/monitor/pkg/temp/osx"
 )
 
-const (
-	KERNEL_SYS_THERMAL_CLASS = "/sys/class/thermal/"
-)
+/** Temperature Strategies should obey this contract */
+type Temperature interface {
+	GetTemperatures() (map[string]int, error)
+}
 
-func GetTemp() ([]int, error) {
-	files, err := ioutil.ReadDir(KERNEL_SYS_THERMAL_CLASS)
-	if err != nil {
-		fmt.Println(len(files))
-		
-		return nil, errors.New(KERNEL_SYS_THERMAL_CLASS)
+func NewTemperature() (Temperature, error) {
+	os := runtime.GOOS
+	switch os {
+	case "linux":
+		return &linux.LinuxTemp{}, nil
+	case "darwin":
+		return &osx.OsxTemp{}, nil
+	default:
+		return nil, fmt.Errorf("No temperature implementation found")
 	}
-	return []int{1, 2}, nil
 }

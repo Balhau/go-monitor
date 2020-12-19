@@ -7,13 +7,9 @@ import (
 )
 
 func main() {
-	fmt.Println("Hello world")
-	var temps []int
-	var err error
-	temps, err = temp.GetTemp()
-	if err != nil {
-		fmt.Println("Deu merda")
-	} else {
-		fmt.Println(temps[0])
+	temp, err := temp.NewTemperature()
+	if err == nil {
+		temps, _ := temp.GetTemperatures()
+		fmt.Println(temps)
 	}
 }
