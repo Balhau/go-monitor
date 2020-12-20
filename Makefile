@@ -10,13 +10,14 @@ format:
 	@$(GO) fmt $(pkgs)
 
 build:
-	mkdir -p $(BUILD_DIR)
+	@echo ">> Creating build dir"
+	@mkdir -p $(BUILD_DIR)
 	@echo ">> building binaries"
 	@$(GO) vet $(PKG)/...
 	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/hello
 
 clean:
 	@echo ">> cleaning project"
-	rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 .PHONY: all format build

@@ -8,6 +8,7 @@ import (
 	"git.balhau.net/monitor/pkg/utils"
 )
 
+// LinuxTemp - Struct that represents the temperature strategy for linux system
 type LinuxTemp struct{}
 
 /**
@@ -16,14 +17,14 @@ type LinuxTemp struct{}
  */
 func (h *LinuxTemp) GetTemperatures() (map[string]int, error) {
 	var tempMap = make(map[string]int)
-	files, err := ioutil.ReadDir(KERNEL_SYS_THERMAL_CLASS)
+	files, err := ioutil.ReadDir(KernelSysThermalClass)
 	thermalTypes := GetThermals()
 	if err == nil {
 		i := 0
 		for _, file := range files {
-			thermalType, _ := utils.ReadString(tpath(file, "/type"))
+			thermalType, _ := utils.ReadString(Path(file, "/type"))
 			if utils.Contains(thermalTypes, *thermalType) {
-				thermalValueStr, _ := utils.ReadString(tpath(file, "/temp"))
+				thermalValueStr, _ := utils.ReadString(Path(file, "/temp"))
 				thermalValue, err := strconv.Atoi(*thermalValueStr)
 				if err == nil {
 					tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
@@ -38,6 +39,7 @@ func (h *LinuxTemp) GetTemperatures() (map[string]int, error) {
 	return tempMap, nil
 }
 
-func tpath(f os.FileInfo, t string) string {
-	return KERNEL_SYS_THERMAL_CLASS + f.Name() + t
+//Path - Utility method to build thermal file descriptor paths
+func Path(f os.FileInfo, t string) string {
+	return KernelSysThermalClass + f.Name() + t
 }

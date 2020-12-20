@@ -4,7 +4,7 @@ import (
 	"reflect"
 )
 
-//Generic function to implement contains operation over arrays
+//Contains - Generic function to implement contains operation over arrays
 func Contains(arrayType interface{}, item interface{}) bool {
 	arr := reflect.ValueOf(arrayType)
 
