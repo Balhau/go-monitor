@@ -1,3 +1,4 @@
+BUILD_DIR=bin
 GO    := CGO_ENABLED=0 GOOS=linux GOPROXY=off go
 PKG    = git.balhau.net/monitor
 pkgs   = $(shell $(GO) list $(PKG)/... | grep -v /vendor/)
@@ -9,8 +10,13 @@ format:
 	@$(GO) fmt $(pkgs)
 
 build:
+	mkdir -p $(BUILD_DIR)
 	@echo ">> building binaries"
 	@$(GO) vet $(PKG)/...
-	@$(GO) build -mod=vendor $(PKG)/cmd/hello
+	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/hello
+
+clean:
+	@echo ">> cleaning project"
+	rm -rf $(BUILD_DIR)
 
 .PHONY: all format build
