@@ -9,11 +9,13 @@ const (
 
 	KernelSysThermalTypeBcm2835 string = "bcm2835_thermal"
 	//drivers/thermal/intel/int340x_thermal/int3400_thermal.c
-	KernelSysThermalTypeX86PkgTemp string = "INT3400 Thermal"
+	KernelSysThermalTypeInt3400Temp string = "INT3400 Thermal"
 	//drivers/acpi/thermal.c
 	KernelSysThermalTypeAcpitz string = "acpitz"
 	//from drivers/thermal/qcom/tsens.c
 	KernelSysThermalTypeQcom string = "tsens"
+	//drivers/thermal/intel/x86_pkg_temp_thermal.c
+	KernelSysThermalTypeX86PkgTemp string = "x86_pkg_temp"
 
 	KernelSysThermalTypeTmem  = "TMEM"
 	KernelSysThermalTypeTskn  = "TSKN"

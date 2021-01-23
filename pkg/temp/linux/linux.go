@@ -17,21 +17,21 @@ func (h *TempLinux) GetTemperatures() (map[string]int, error) {
 	var tempMap = make(map[string]int)
 	fmt.Println(KernelSysThermalClass)
 	files, err := ioutil.ReadDir(KernelSysThermalClass)
-	thermalTypes := GetThermals()
+	//thermalTypes := GetThermals()
 	if err == nil {
 		i := 0
 		for _, file := range files {
 			thermalType, _ := utils.ReadString(Path(file, "/type"))
-			if utils.Contains(thermalTypes, *thermalType) {
-				thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
+			//if utils.Contains(thermalTypes, *thermalType) {
+			thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
+			if err == nil {
+				thermalValue, err := strconv.Atoi(*thermalValueStr)
 				if err == nil {
-					thermalValue, err := strconv.Atoi(*thermalValueStr)
-					if err == nil {
-						tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
-						i++
-					}
+					tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
+					i++
 				}
 			}
+			//}
 		}
 	} else {
 		return nil, err
