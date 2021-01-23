@@ -1,6 +1,7 @@
 package linux
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"strconv"
@@ -8,15 +9,13 @@ import (
 	"git.balhau.net/monitor/pkg/utils"
 )
 
-// LinuxTemp - Struct that represents the temperature strategy for linux system
-type LinuxTemp struct{}
+// TempLinux - Struct that represents the temperature strategy for linux system
+type TempLinux struct{}
 
-/**
-*
-* GetTemperatures: Return a map with temperature information for linux OS systems
- */
-func (h *LinuxTemp) GetTemperatures() (map[string]int, error) {
+// GetTemperatures - Return a map with temperature information for linux OS systems
+func (h *TempLinux) GetTemperatures() (map[string]int, error) {
 	var tempMap = make(map[string]int)
+	fmt.Println(KernelSysThermalClass)
 	files, err := ioutil.ReadDir(KernelSysThermalClass)
 	thermalTypes := GetThermals()
 	if err == nil {
@@ -24,14 +23,15 @@ func (h *LinuxTemp) GetTemperatures() (map[string]int, error) {
 		for _, file := range files {
 			thermalType, _ := utils.ReadString(Path(file, "/type"))
 			if utils.Contains(thermalTypes, *thermalType) {
-				thermalValueStr, _ := utils.ReadString(Path(file, "/temp"))
-				thermalValue, err := strconv.Atoi(*thermalValueStr)
+				thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
 				if err == nil {
-					tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
-					i++
+					thermalValue, err := strconv.Atoi(*thermalValueStr)
+					if err == nil {
+						tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
+						i++
+					}
 				}
 			}
-
 		}
 	} else {
 		return nil, err

@@ -20,6 +20,9 @@ const (
 	KernelSysThermalTypeNgff  = "NGFF"
 	KernelSysThermalTypeB0d4  = "B0D4"
 	KernelSysThermalTypeIwifi = "iwlwifi_1"
+
+	PathThermalType = "type"
+	PathThermalTemp = "temp"
 )
 
 //GetThermals - retrieve all the thermal constants in a slice

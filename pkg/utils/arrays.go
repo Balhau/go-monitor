@@ -8,7 +8,7 @@ import (
 func Contains(arrayType interface{}, item interface{}) bool {
 	arr := reflect.ValueOf(arrayType)
 
-	if isArrayType(arr.Kind()) {
+	if !isArrayType(arr.Kind()) {
 		panic("Invalid data-type")
 	}
 
@@ -22,5 +22,5 @@ func Contains(arrayType interface{}, item interface{}) bool {
 }
 
 func isArrayType(kind reflect.Kind) bool {
-	return kind != reflect.Array && kind != reflect.Slice
+	return kind == reflect.Array || kind == reflect.Slice
 }
