@@ -17,12 +17,12 @@ func (h *TempLinux) GetTemperatures() (map[string]int, error) {
 	var tempMap = make(map[string]int)
 	fmt.Println(KernelSysThermalClass)
 	files, err := ioutil.ReadDir(KernelSysThermalClass)
-	//thermalTypes := GetThermals()
+	thermalTypes := GetThermals()
 	if err == nil {
 		i := 0
 		for _, file := range files {
 			thermalType, _ := utils.ReadString(Path(file, "/type"))
-			//if utils.Contains(thermalTypes, *thermalType) {
+			if utils.Contains(thermalTypes, *thermalType) {
 			thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
 			if err == nil {
 				thermalValue, err := strconv.Atoi(*thermalValueStr)
@@ -31,7 +31,7 @@ func (h *TempLinux) GetTemperatures() (map[string]int, error) {
 					i++
 				}
 			}
-			//}
+			}
 		}
 	} else {
 		return nil, err
