@@ -27,13 +27,3 @@ type Domain struct {
 type DNSBindConfig struct {
 	Domains []Domain `yaml:"domains"`
 }
-
-//Read the yaml dns bind configurations
-func ReadDnsBindConfigs(yamlConfigs string) (*DNSBindConfig, error) {
-	return nil, nil
-}
-
-//This will apply the templating to the dns
-func ProcessDnsTemplating(dnsConfigs DNSBindConfig) error {
-	return nil
-}
