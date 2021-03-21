@@ -10,6 +10,11 @@ red ="\e[31m"
 
 all: format build
 
+vendor:
+	@echo $(green)
+	@echo ">> Updating vendor"
+	@$(GO) mod vendor
+
 format:
 	@echo $(cyan)
 	@echo ">> formatting code"
@@ -29,4 +34,4 @@ clean:
 	@echo ">> cleaning project"
 	@rm -rf $(BUILD_DIR)
 
-.PHONY: all format build
+.PHONY: all format build vendor
