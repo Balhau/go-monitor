@@ -1,5 +1,5 @@
 domains:
-  - templatePath: resources/dns/templates/bind.template
+  - templatePath: /home/pirate/dns/bind.template
     globalAddress: 
       - 127.0.0.1
     name: balhau.net
@@ -55,7 +55,34 @@ domains:
       - balhau.info.tm.
       - balhau.asuscomm.com.
       - balhau.kalbas.com.vn.
-    outputPath: "balhau.net.db"
+    outputPath: "/etc/bind/balhau.net.generated.db"
+    restartCommand: 
+      - service 
+      - bind9
+      - restart
+
+  - templatePath: /home/pirate/dns/bind.template
+    globalAddress: 
+      - 127.0.0.1
+    name: bbbeauty.eu
+    nameresolver: balhau.asuscomm.com
+    serial: 9
+    refresh: 21600
+    retry: 86400
+    expire: 2419200
+    minimum: 604800
+    soa:
+      - bbbeauty.eu.
+      - root.bbbeauty.eu.
+    
+    cname:
+      www: bbbeauty.eu.
+    nameservers:
+      - bbbeauty.eu.
+      - balhau.info.tm.
+      - balhau.asuscomm.com.
+      - balhau.kalbas.com.vn.
+    outputPath: "/etc/bind/bbbeauty.eu.generated.db"
     restartCommand: 
       - service 
       - bind9
