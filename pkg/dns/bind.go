@@ -13,12 +13,13 @@ type Domain struct {
 	Minimum       int               `yaml:"minimum,omitempty"`
 	Cname         map[string]string `yaml:"cname,omitempty"`
 	Address       map[string]string `yaml:"address,omitempty"`
+	NameResolver  string            `yaml:"nameresolver,omitempty"`
 	Soa           []string          `yaml:"soa,omitempty"`
 	Nameservers   []string          `yaml:"nameservers,omitempty"`
 	GlobalAddress []string          `yaml:"globalAddress,omitempty"`
 	Mailservers   []string          `yaml:"mailservers,omitempty"`
 	Name          string            `yaml:"name,omitempty"`
-	Ip            string            `yaml:"ip,omitempty"`
+	OutputPath    string            `yaml:"outputPath"`
 }
 
 //Dns Bind Template configurations.

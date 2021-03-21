@@ -3,6 +3,7 @@ domains:
     globalAddress: 
       - 127.0.0.1
     name: balhau.net
+    nameresolver: balhau.asuscomm.com
     serial: 9
     refresh: 21600
     retry: 86400
@@ -11,37 +12,48 @@ domains:
     soa:
       - balhau.net.
       - root.balhau.net.
+    address:
+      privdns: 192.168.1.170
     
     cname:
+      bluemark: balhau.net.
+      alexandria: balhau.net.
+      burger-builder: balhau.net.
+      blog: balhau.net.
+      tracker: balhau.net.
+      nexus: balhau.net.
+      pki: balhau.net.
+      dev: balhau.net.
+      ecc: balhau.net.
+      apt: balhau.net.
+      html5: balhau.net.
       git: balhau.net.
-      stuff: bois
+      mail: balhau.net.
+      smtp: balhau.net.
+      webfact: balhau.net.
+      pip: balhau.net.
+      pi: balhau.net.
+      pihole: balhau.net.
+      kavorka: balhau.net.
+      codecorner: balhau.net.
+      malheiro: balhau.net.
+      opencart: balhau.net.
+      shared: balhau.net.
+      sip: balhau.net.
+      api: balhau.net.
+      webpt: balhau.net.
+      sudoku: balhau.net.
+      transmission: balhau.net.
+      balhauapi: balhau.net.
+      webpt: balhau.net.
+      kafkaworkshop: balhau.net.
+      verdaccio: balhau.net.
+      blog: balhau.net.
+      blog: balhau.net.
     nameservers:
       - balhau.net.
       - balhau.info.tm.
       - balhau.asuscomm.com.
       - balhau.kalbas.com.vn.
+    outputPath: "balhau.net.db"
 
-  - templatePath: resources/dns/templates/bind.template
-    globalAddress: 
-      - 127.0.0.1
-    serial: 9
-    refresh: 21600
-    retry: 86400
-    expire: 2419200
-    minimum: 604800
-    name: balhau.net
-    soa:
-      - balhau.net.
-      - root.balhau.net.
-    cname:
-      dir: ois
-      map: bois
-    address:
-      pihole: 10.0.1.1
-      pihole2: 10.0.1.2
-    nameservers:
-      - balhau.net.
-      - balhau.info.tm.
-      - balhau.asuscomm.com.
-      - balhau.kalbas.com.vn.
-  
