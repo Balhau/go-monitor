@@ -56,4 +56,8 @@ domains:
       - balhau.asuscomm.com.
       - balhau.kalbas.com.vn.
     outputPath: "balhau.net.db"
+    restartCommand: 
+      - service 
+      - bind9
+      - restart
 

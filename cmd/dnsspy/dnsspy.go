@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"os/exec"
 	"reflect"
 	"time"
 
@@ -18,7 +19,7 @@ import (
 )
 
 const (
-	DNS_UPDATER_FREQ = 2
+	DNS_UPDATER_FREQ = 20
 )
 
 var domains, erra = parseDomains()
@@ -58,7 +59,7 @@ func buildGlobalIPsMap(domains dns.DNSBindConfig) (map[string][]string, error) {
 	var globalips = make(map[string][]string)
 
 	for _, domain := range domains.Domains {
-		globalips[domain.Name] = domain.GlobalAddress
+		globalips[domain.NameResolver] = domain.GlobalAddress
 	}
 
 	return globalips, nil
@@ -107,7 +108,7 @@ func updateDNS() {
 
 			buff := bytes.NewBufferString("")
 
-			domain.GlobalAddress = updatedIps[domain.Name]
+			domain.GlobalAddress = updatedIps[domain.NameResolver]
 
 			t.Execute(buff, domain)
 
@@ -119,6 +120,14 @@ func updateDNS() {
 
 			f.Write(buff.Bytes())
 			f.Close()
+
+			cmd := exec.Command(domain.RestartCommand[0], domain.RestartCommand[1:]...)
+
+			err = cmd.Run()
+
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
 		globalips = updatedIps
 	} else {

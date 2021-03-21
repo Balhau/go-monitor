@@ -1,5 +1,6 @@
 BUILD_DIR=bin
 GO    := CGO_ENABLED=0 GOOS=linux GOPROXY=off go
+GOARM := GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=0 GOOS=linux GOPROXY=off go
 PKG    = git.balhau.net/monitor
 pkgs   = $(shell $(GO) list $(PKG)/... | grep -v /vendor/)
 
@@ -9,6 +10,8 @@ red ="\e[31m"
 
 
 all: format build
+
+arm: format buildarm
 
 vendor:
 	@echo $(green)
@@ -28,6 +31,16 @@ build:
 	@$(GO) vet $(PKG)/...
 	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/hello
 	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/dnsspy
+
+buildarm:
+	@echo $(green)
+	@echo ">> Creating build dir"
+	@mkdir -p $(BUILD_DIR)
+	@echo ">> building binaries"
+	@$(GOARM) vet $(PKG)/...
+	@$(GOARM) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/hello
+	@$(GOARM) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/dnsspy
+
 
 clean:
 	@echo $(red)
