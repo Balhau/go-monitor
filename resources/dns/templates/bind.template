@@ -1,0 +1,22 @@
+$ORIGIN .
+$TTL 604800     ; 1 week
+{{.Name}}              IN SOA  {{ range $value := .Soa }} {{ $value }} {{ end }} (
+                                {{ .Serial }}         ; serial
+                                {{ .Refresh }}        ; refresh (6 hours)
+                                {{ .Retry }}          ; retry (1 day)
+                                {{ .Expire }}         ; expire (4 weeks)
+                                {{ .Minimum }}        ; minimum (1 week)
+                                )
+$TTL 3600                                             ; 1 hour
+                    {{ range $value := .Nameservers }} NS {{ $value }}
+                    {{ end }}
+                    {{ range $value := .GlobalAddress }} A {{ $value }}
+                    {{ end }}
+
+$ORIGIN {{ .Name }}
+
+{{ range $key, $value := .Cname }} {{ $key }}      IN      CNAME   {{ $value }} 
+{{ end }}
+{{ range $key, $value := .Address }} {{ $key }}      IN      A   {{ $value }} 
+{{ end }}
+$TTL 60       ; 1 hour

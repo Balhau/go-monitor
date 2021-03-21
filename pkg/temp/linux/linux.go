@@ -23,14 +23,14 @@ func (h *TempLinux) GetTemperatures() (map[string]int, error) {
 		for _, file := range files {
 			thermalType, _ := utils.ReadString(Path(file, "/type"))
 			if utils.Contains(thermalTypes, *thermalType) {
-			thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
-			if err == nil {
-				thermalValue, err := strconv.Atoi(*thermalValueStr)
+				thermalValueStr, err := utils.ReadString(Path(file, "/temp"))
 				if err == nil {
-					tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
-					i++
+					thermalValue, err := strconv.Atoi(*thermalValueStr)
+					if err == nil {
+						tempMap[*thermalType+"_"+strconv.Itoa(i)] = utils.ParseLinuxTemp(thermalValue)
+						i++
+					}
 				}
-			}
 			}
 		}
 	} else {

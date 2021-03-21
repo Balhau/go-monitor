@@ -1,0 +1,47 @@
+domains:
+  - templatePath: resources/dns/templates/bind.template
+    globalAddress: 
+      - 127.0.0.1
+    name: balhau.net
+    serial: 9
+    refresh: 21600
+    retry: 86400
+    expire: 2419200
+    minimum: 604800
+    soa:
+      - balhau.net.
+      - root.balhau.net.
+    
+    cname:
+      git: balhau.net.
+      stuff: bois
+    nameservers:
+      - balhau.net.
+      - balhau.info.tm.
+      - balhau.asuscomm.com.
+      - balhau.kalbas.com.vn.
+
+  - templatePath: resources/dns/templates/bind.template
+    globalAddress: 
+      - 127.0.0.1
+    serial: 9
+    refresh: 21600
+    retry: 86400
+    expire: 2419200
+    minimum: 604800
+    name: balhau.net
+    soa:
+      - balhau.net.
+      - root.balhau.net.
+    cname:
+      dir: ois
+      map: bois
+    address:
+      pihole: 10.0.1.1
+      pihole2: 10.0.1.2
+    nameservers:
+      - balhau.net.
+      - balhau.info.tm.
+      - balhau.asuscomm.com.
+      - balhau.kalbas.com.vn.
+  

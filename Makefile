@@ -22,6 +22,7 @@ build:
 	@echo ">> building binaries"
 	@$(GO) vet $(PKG)/...
 	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/hello
+	@$(GO) build -o $(BUILD_DIR) -mod=vendor $(PKG)/cmd/dnsspy
 
 clean:
 	@echo $(red)
