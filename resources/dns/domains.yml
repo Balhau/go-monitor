@@ -16,39 +16,19 @@ domains:
       privdns: 192.168.1.170
     
     cname:
-      bluemark: balhau.net.
-      alexandria: balhau.net.
       burger-builder: balhau.net.
-      blog: balhau.net.
-      tracker: balhau.net.
-      nexus: balhau.net.
-      pki: balhau.net.
-      dev: balhau.net.
-      ecc: balhau.net.
-      apt: balhau.net.
-      html5: balhau.net.
       git: balhau.net.
       mail: balhau.net.
       smtp: balhau.net.
-      webfact: balhau.net.
       pip: balhau.net.
       pi: balhau.net.
-      pihole: balhau.net.
       kavorka: balhau.net.
       codecorner: balhau.net.
-      malheiro: balhau.net.
-      opencart: balhau.net.
       shared: balhau.net.
-      sip: balhau.net.
       api: balhau.net.
-      webpt: balhau.net.
-      sudoku: balhau.net.
-      transmission: balhau.net.
       balhauapi: balhau.net.
-      webpt: balhau.net.
       kafkaworkshop: balhau.net.
       verdaccio: balhau.net.
-      blog: balhau.net.
       blog: balhau.net.
     nameservers:
       - balhau.net.
