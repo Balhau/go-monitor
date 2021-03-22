@@ -34,7 +34,7 @@ This is a cron based dns updater for bind dns daemon. It consumes a [bind.templa
 
 As example
 
-```go
+```
 import (
 	"log"
 	"os"
