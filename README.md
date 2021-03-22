@@ -30,7 +30,7 @@ make format build
 
 ### DnsSpy
 
-This is a cron based dns updater for bind dns daemon. It consumes a [bind.template](resources/dns/bind.template) file, and a [yaml domain file](resources/dns/domains.yml) and creates `bind` dns configuration files. The strategy will issue a bind reboot command.
+This is a cron based dns updater for bind dns daemon. It consumes a [bind.template](resources/dns/templates/bind.template) file, and a [yaml domain file](resources/dns/domains.yml) and creates `bind` dns configuration files. The strategy will issue a bind reboot command.
 
 As example
 
@@ -47,12 +47,10 @@ const (
 
 func main() {
 	var dnsSpy = dns.NewDnsBindSpy(os.Getenv(dns.DNS_CONFIG_PATH_ENV), DNS_UPDATER_FREQ)
-
 	var err = dnsSpy.InitSpy()
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	dnsSpy.StartBlockingSpy()
 }
 ``` 
