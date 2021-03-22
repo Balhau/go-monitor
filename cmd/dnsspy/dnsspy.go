@@ -17,6 +17,7 @@ func main() {
 	var err = dnsSpy.InitSpy()
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 
 	dnsSpy.StartBlockingSpy()
