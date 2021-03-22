@@ -38,7 +38,6 @@ As example
 import (
 	"log"
 	"os"
-
 	"git.balhau.net/monitor/pkg/dns"
 )
 
@@ -56,5 +55,4 @@ func main() {
 
 	dnsSpy.StartBlockingSpy()
 }
-
 ``` 
