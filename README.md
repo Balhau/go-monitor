@@ -2,7 +2,7 @@
 
 ## What?
 
-Monitoring collector tools golang. 
+Monitoring collector tools golang.
 
 ## Running
 
@@ -34,23 +34,24 @@ This is a cron based dns updater for bind dns daemon. It consumes a [bind.templa
 
 As example
 
-```
+```golang
+
 import (
-	"log"
-	"os"
-	"git.balhau.net/monitor/pkg/dns"
+"log"
+"os"
+"git.balhau.net/monitor/pkg/dns"
 )
 
 const (
-	DNS_UPDATER_FREQ = 20
+DNS_UPDATER_FREQ = 20
 )
 
 func main() {
-	var dnsSpy = dns.NewDnsBindSpy(os.Getenv(dns.DNS_CONFIG_PATH_ENV), DNS_UPDATER_FREQ)
-	var err = dnsSpy.InitSpy()
-	if err != nil {
-		log.Fatal(err)
-	}
-	dnsSpy.StartBlockingSpy()
+var dnsSpy = dns.NewDnsBindSpy(os.Getenv(dns.DNS_CONFIG_PATH_ENV), DNS_UPDATER_FREQ)
+var err = dnsSpy.InitSpy()
+if err != nil {
+    log.Fatal(err)
 }
-``` 
+dnsSpy.StartBlockingSpy()
+}
+```
