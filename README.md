@@ -30,7 +30,7 @@ make format build
 
 ### DnsSpy
 
-This is a cron based dns updater for bind dns daemon. It consumes a [bind.template](resources/templates/dns/bind.template) file, and a [yaml domain file](resources/dns/domains.yml) and creates `bind` dns configuration files. The strategy will issue a bind reboot command.
+This is a cron based dns updater for bind dns daemon. It consumes a [bind.template](resources/dns/bind.template) file, and a [yaml domain file](resources/dns/domains.yml) and creates `bind` dns configuration files. The strategy will issue a bind reboot command.
 
 As example
 
