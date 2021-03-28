@@ -47,12 +47,14 @@ const (
 )
 
 func main() {
-    var dnsSpy = dns.NewDnsBindSpy(os.Getenv(dns.DNS_CONFIG_PATH_ENV), DNS_UPDATER_FREQ)
-    var err = dnsSpy.InitSpy()
-if err != nil {
-    log.Fatal(err)
-    return
-}
-    dnsSpy.StartBlockingSpy()
+	var dnsSpy = dns.NewDnsBindSpy(os.Getenv(dns.DNS_CONFIG_PATH_ENV), DNS_UPDATER_FREQ)
+
+	var err = dnsSpy.InitSpy()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	dns.StartBlockingSpy(&dnsSpy)
 }
 ```
