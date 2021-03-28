@@ -104,9 +104,9 @@ func (spy *DnsBindSpy) updatedIps(globalIps map[string][]string) (map[string][]s
 		addrs, err := net.LookupHost(name)
 		if err != nil {
 			log.Println("Error fetching dns: ", name)
-			return nil, err
+		} else {
+			updatedIps[name] = addrs
 		}
-		updatedIps[name] = addrs
 	}
 	return updatedIps, nil
 }
