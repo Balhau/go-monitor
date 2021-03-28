@@ -20,5 +20,5 @@ func main() {
 		return
 	}
 
-	dnsSpy.StartBlockingSpy()
+	dns.StartBlockingSpy(&dnsSpy)
 }

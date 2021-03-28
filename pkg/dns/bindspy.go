@@ -11,9 +11,10 @@ import (
 	"reflect"
 	"time"
 
+	"text/template"
+
 	"github.com/go-co-op/gocron"
 	"gopkg.in/yaml.v2"
-	"text/template"
 )
 
 const (
@@ -58,7 +59,7 @@ func NewDnsBindSpy(configPath string, spyFreq int) DnsBindSpy {
 	}
 }
 
-func (spy DnsBindSpy) parseDomains() error {
+func (spy *DnsBindSpy) parseDomains() error {
 
 	yamlDNSFile, err := ioutil.ReadFile(spy.configYamlPath)
 
@@ -80,7 +81,7 @@ func (spy DnsBindSpy) parseDomains() error {
 	return nil
 }
 
-func (spy DnsBindSpy) buildIpMap() error {
+func (spy *DnsBindSpy) buildIpMap() error {
 	if &spy.dnsBindConfig == nil {
 		return errors.New("Invalid dns.DNSBindConfig")
 	}
@@ -88,15 +89,17 @@ func (spy DnsBindSpy) buildIpMap() error {
 	spy.globalIps = make(map[string][]string)
 
 	for _, domain := range spy.dnsBindConfig.Domains {
+		log.Println("GlobalIpAddress: ", domain.GlobalAddress)
 		spy.globalIps[domain.NameResolver] = domain.GlobalAddress
 	}
 
 	return nil
 }
 
-func (spy DnsBindSpy) updatedIps(globalIps map[string][]string) (map[string][]string, error) {
+func (spy *DnsBindSpy) updatedIps(globalIps map[string][]string) (map[string][]string, error) {
 	var updatedIps = make(map[string][]string)
 	for name, _ := range spy.globalIps {
+		log.Println("Resolving DNS: ", name)
 		addrs, err := net.LookupHost(name)
 		if err != nil {
 			return nil, err
@@ -106,7 +109,7 @@ func (spy DnsBindSpy) updatedIps(globalIps map[string][]string) (map[string][]st
 	return updatedIps, nil
 }
 
-func (spy DnsBindSpy) InitSpy() error {
+func (spy *DnsBindSpy) InitSpy() error {
 	var err = spy.parseDomains()
 	if err != nil {
 		return err
@@ -118,18 +121,21 @@ func (spy DnsBindSpy) InitSpy() error {
 	return nil
 }
 
-func (spy DnsBindSpy) StartBlockingSpy() {
+func StartBlockingSpy(spy *DnsBindSpy) {
 	s := gocron.NewScheduler(time.UTC)
 	s.Every(spy.spyFrequency).Second().Do(spy.updateDNS)
 	s.StartBlocking()
 }
 
-func (spy DnsBindSpy) updateDNS() {
+func (spy *DnsBindSpy) updateDNS() {
 
 	var updatedIps, _ = spy.updatedIps(spy.globalIps)
 
 	if !reflect.DeepEqual(spy.globalIps, updatedIps) {
-		log.Println("Detected change of ips, updating dns entries", updatedIps)
+		log.Println("Detected change of ips, updating dns entries")
+		log.Println("GlobalIPs: ", spy.globalIps)
+		log.Println("UpdatedIPs: ", updatedIps)
+
 		for _, domain := range spy.dnsBindConfig.Domains {
 			domainTemplate, err := ioutil.ReadFile(domain.TemplatePath)
 			if err != nil {
