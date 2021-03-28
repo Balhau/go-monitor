@@ -98,10 +98,12 @@ func (spy *DnsBindSpy) buildIpMap() error {
 
 func (spy *DnsBindSpy) updatedIps(globalIps map[string][]string) (map[string][]string, error) {
 	var updatedIps = make(map[string][]string)
-	for name, _ := range spy.globalIps {
+	for name, value := range spy.globalIps {
 		log.Println("Resolving DNS: ", name)
+		updatedIps[name] = value
 		addrs, err := net.LookupHost(name)
 		if err != nil {
+			log.Println("Error fetching dns: ", name)
 			return nil, err
 		}
 		updatedIps[name] = addrs
